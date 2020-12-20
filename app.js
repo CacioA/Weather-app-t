@@ -22,8 +22,7 @@ window.addEventListener('load',()=>{
             const proxy = 'https://cors-anywhere.herokuapp.com/';
             const api= `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=eff27d758eaed7bc06dd0fa3a5150edf`;
            
-            //https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=eff27d758eaed7bc06dd0fa3a5150edf
-            //https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={part}&appid=eff27d758eaed7bc06dd0fa3a5150edf
+            const apiLocation ='https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={part}&appid=eff27d758eaed7bc06dd0fa3a5150edf';
             
             fetch(api)
         .then(response =>{
@@ -34,23 +33,18 @@ window.addEventListener('load',()=>{
             console.log(data);
             
             const {temp,humidity, pressure} = data.main;
-            weatherStatus = data.weather[0].description;  
-            let icon = data.weather[0].icon;
-                  
+            weatherStatus = "Status: "+data.weather[0].description;  
+           // let icon = data.weather[0].icon;
             
-            let name = "http://openweathermap.org/img/wn/"+icon+"@2x.png";
             let x = document.getElementById('weather-icon');
             
-            x.src="http://openweathermap.org/img/wn/04n@2x.png";
+            x.src="http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
             
-            
-            
-            // document.getElementById('weather-icon').src = "http://openweathermap.org/img/wn/"+icon+"@2x.png";
-            temperatureDegree.textContent = (temp-273.15).toFixed(2) ;
+            temperatureDegree.textContent = "Current temperature: "+(temp-273.15).toFixed(2)+'\u00B0';
             temperatureDescription.textContent = weatherStatus;
             locationTimezone.textContent = "GMT+ "+data.timezone;
-            temperatureHumidity.textContent = humidity;
-            temperaturePressure.textContent = pressure;
+            temperatureHumidity.textContent = "Humidity: "+humidity +"%";
+            temperaturePressure.textContent = "Pressure: "+pressure+" hPa";
             currentCountry.textContent = data.sys.country;;
             
             //setIcon(weatherStatus,document.querySelector('.icon'));
