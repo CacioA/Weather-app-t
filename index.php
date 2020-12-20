@@ -1,5 +1,5 @@
 <?php 
 
-inclulde_once("home.html");
+inclulde_once("index.html");
 
 ?>
