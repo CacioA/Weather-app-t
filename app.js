@@ -22,19 +22,22 @@ window.addEventListener('load',()=>{
             const proxy = 'https://cors-anywhere.herokuapp.com/';
             const api= `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=eff27d758eaed7bc06dd0fa3a5150edf`;
            
-            const apiLocation ='https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={part}&appid=eff27d758eaed7bc06dd0fa3a5150edf';
-            
+            const apiLocation =`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={part}&appid=eff27d758eaed7bc06dd0fa3a5150edf`;
+            console.log(apiLocation);
+
+           
+
             fetch(api)
         .then(response =>{
             return response.json();
         })
         .then(data =>{
-            
             console.log(data);
+           
             
             const {temp,humidity, pressure} = data.main;
             weatherStatus = "Status: "+data.weather[0].description;  
-           // let icon = data.weather[0].icon;
+           
             
             let x = document.getElementById('weather-icon');
             
@@ -42,12 +45,10 @@ window.addEventListener('load',()=>{
             
             temperatureDegree.textContent = "Current temperature: "+(temp-273.15).toFixed(2)+'\u00B0';
             temperatureDescription.textContent = weatherStatus;
-            locationTimezone.textContent = "GMT+ "+data.timezone;
+            locationTimezone.textContent = "GMT+ "+data.timezone/3600;
             temperatureHumidity.textContent = "Humidity: "+humidity +"%";
             temperaturePressure.textContent = "Pressure: "+pressure+" hPa";
-            currentCountry.textContent = data.sys.country;;
-            
-            //setIcon(weatherStatus,document.querySelector('.icon'));
+            currentCountry.textContent =data.sys.country + ", "+data.name ;
 
         });
     
